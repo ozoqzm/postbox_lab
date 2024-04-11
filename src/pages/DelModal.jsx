@@ -29,17 +29,7 @@ const BtnWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const YesBtn = styled.div`
-  width: 80px;
-  height: 34.859px;
-  background: #e2ffd5;
-  color: #000;
-  font-family: Inter;
-  font-size: 16px;
-  line-height: 2;
-  text-align: center;
-`;
-const NoBtn = styled.div`
+const Btn = styled.div`
   width: 80px;
   height: 34.859px;
   background: #e2ffd5;
@@ -59,20 +49,20 @@ const Modal = (props) => {
         <br /> 정말 삭제하실 거예요...? 🥹
       </TextBox>
       <BtnWrapper>
-        <YesBtn
+        <Btn
           onClick={() => {
             isClose(false); // 추후 게시글 삭제 기능으로 수정
           }}
         >
           네
-        </YesBtn>
-        <NoBtn
+        </Btn>
+        <Btn
           onClick={() => {
             isClose(false);
           }}
         >
           아뇨!!!
-        </NoBtn>
+        </Btn>
       </BtnWrapper>
     </Container>
   );
