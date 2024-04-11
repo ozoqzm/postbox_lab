@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled.div`
   position: relative;
@@ -72,13 +73,34 @@ const SaveBtn = styled.div`
 `;
 
 const Send = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  function handleTitleInput(event) {
+    setTitle(event.target.value);
+  }
+  function handleContInput(event) {
+    setContent(event.target.value);
+  }
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate(`/`);
   };
-  const goSave = () => {
+
+  const handleSaveButton = () => {
+    const newLetter = {
+      content: content,
+      title: title,
+      id: Date.now(),
+    };
+    const letters = JSON.parse(localStorage.getItem("letters") || "[]");
+    letters.push(newLetter);
+    localStorage.setItem("letters", JSON.stringify(letters));
+
     navigate(`/`);
   };
+
   return (
     <Container>
       <BackBtn onClick={goBack}>
@@ -90,10 +112,14 @@ const Send = () => {
       </BackBtn>
       <TitleWrapper>
         <Title>편지 제목:</Title>
-        <TitleInput></TitleInput>
+        <TitleInput onChange={handleTitleInput} value={title} />
       </TitleWrapper>
-      <ContentBox placeholder="내용 입력 ✏️"></ContentBox>
-      <SaveBtn onClick={goSave}>전송하기</SaveBtn>
+      <ContentBox
+        placeholder="로컬스토리지에 데이터 저장해보기!
+        내용 입력 ✏️"
+        onChange={handleContInput}
+      ></ContentBox>
+      <SaveBtn onClick={handleSaveButton}>전송하기</SaveBtn>
     </Container>
   );
 };

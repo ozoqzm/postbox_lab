@@ -111,6 +111,15 @@ const Home = () => {
     navigate(`/send`);
   };
 
+  // 추가
+  const [letterList, setLetterList] = useState([]);
+  useEffect(() => {
+    const savedLetters = localStorage.getItem("letters");
+    if (savedLetters) {
+      setLetterList(JSON.parse(savedLetters));
+    }
+  }, []);
+
   return (
     <Container>
       <Line>
@@ -122,7 +131,7 @@ const Home = () => {
           />
         </Logo>
         <Title>
-          🦁DDWU LIKE_LION🦁
+          🦁DWU x LIKELION🦁
           <br />
           LETTER
         </Title>
@@ -135,7 +144,17 @@ const Home = () => {
               {e.title}
             </Letter>
           ))}
+
+          {/* 여기서부턴 로컬스토리지에 저장된 편지들 불러오기 */}
+          {letterList.map((e) => (
+            <Letter key={e.postId}>
+              제목: {e.title}
+              <br />
+              내용: {e.content}
+            </Letter>
+          ))}
         </LetterWrapper>
+
         <PostBox>
           <div id="postText">POST</div>
           <hr></hr>
