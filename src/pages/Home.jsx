@@ -1,7 +1,8 @@
 import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import jsonData from "./data.json";
 
 const Container = styled.div`
   position: relative;
@@ -43,12 +44,18 @@ const LetterWrapper = styled.div`
   }
 `;
 const Letter = styled.div`
+  display: flex;
+  align-items: center;
   width: 200px;
   min-height: 90px;
   border-radius: 5px;
   border: 1px solid #cf4d4d;
   background: #fff;
   margin-top: 8px;
+  color: #5f5f5f;
+  font-family: Inter;
+  font-size: 16px;
+  text-align: center;
 `;
 const PostBox = styled.div`
   position: absolute;
@@ -97,10 +104,13 @@ const SendBtn = styled.div`
 `;
 
 const Home = () => {
+  const dataList = jsonData;
+
   const navigate = useNavigate();
   const goSend = () => {
     navigate(`/send`);
   };
+
   return (
     <Container>
       <Line>
@@ -117,12 +127,14 @@ const Home = () => {
           LETTER
         </Title>
         <LetterWrapper>
-          <Letter></Letter>
-          <Letter></Letter>
-          <Letter></Letter>
-          <Letter></Letter>
-          <Letter></Letter>
-          <Letter></Letter>
+          {dataList.map((e) => (
+            <Letter
+              key={e.postId}
+              onClick={() => navigate(`/detail`, { state: e.postId })}
+            >
+              {e.title}
+            </Letter>
+          ))}
         </LetterWrapper>
         <PostBox>
           <div id="postText">POST</div>

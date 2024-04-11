@@ -1,8 +1,9 @@
 import React from "react";
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Modal from "./DelModal";
+import jsonData from "./data.json";
 
 const Container = styled.div`
   position: relative;
@@ -20,13 +21,13 @@ const BackBtn = styled.div`
   left: 10px;
 `;
 const Title = styled.div`
-  width: 10rem;
+  width: 12rem;
   height: 2.5rem;
   border-bottom: 1px solid #000;
   color: #000;
   margin-top: 90px;
   font-family: Inter;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-align: center;
 `;
@@ -72,6 +73,12 @@ const BtnWrapper = styled.div`
 `;
 
 const Detail = () => {
+  const dataList = jsonData;
+
+  const location = useLocation();
+  const postId = location.state;
+  const post = postId ? dataList.find((item) => item.postId === postId) : null;
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate(`/`);
@@ -89,12 +96,12 @@ const Detail = () => {
           width="35px"
         />
       </BackBtn>
-      <Title>제목</Title>
-      <ContentBox>어쩌고저쩌고</ContentBox>
+      <Title>{post && post.title}</Title>
+      <ContentBox>{post && post.content}</ContentBox>
       <BtnWrapper>
         <UpdateBtn>수정하기</UpdateBtn>
         <DeleteBtn onClick={() => setModal(true)}>삭제하기</DeleteBtn>
-        {modal ? <Modal isClose={setModal} postId={3} /> : null}
+        {modal ? <Modal isClose={setModal} postId={postId} /> : null}
       </BtnWrapper>
     </Container>
   );
