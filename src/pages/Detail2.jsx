@@ -31,12 +31,14 @@ const Title = styled.div`
   font-weight: 700;
   text-align: center;
 `;
-const ContentBox = styled.div`
+const ContentBox = styled.textarea`
   margin-top: 25px;
   width: 18rem;
   height: 27rem;
   border-radius: 5px;
   background: #ffebc5;
+  resize: none;
+  border: none;
   font-family: Inter;
   font-size: 1rem;
 `;
@@ -54,7 +56,7 @@ const DeleteBtn = styled.div`
   font-weight: 500;
   line-height: 2;
 `;
-const Detail = () => {
+const Detail2 = () => {
   const dataList = jsonData;
 
   const location = useLocation();
@@ -86,4 +88,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default Detail2;
