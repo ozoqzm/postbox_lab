@@ -2,7 +2,6 @@ import React from "react";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import jsonData from "./data.json";
 
 const Container = styled.div`
   position: relative;
@@ -103,9 +102,7 @@ const SendBtn = styled.div`
   }
 `;
 
-const Home = () => {
-  const dataList = jsonData;
-
+const Home = ({ dataList }) => {
   const navigate = useNavigate();
   const goSend = () => {
     navigate(`/send`);
@@ -139,18 +136,21 @@ const Home = () => {
           {dataList.map((e) => (
             <Letter
               key={e.postId}
-              onClick={() => navigate(`/detail`, { state: e.postId })}
+              onClick={() => navigate(`/detail/${e.postId}`)}
             >
               {e.title}
             </Letter>
           ))}
 
-          {/* 여기서부턴 로컬스토리지에 저장된 편지들 불러오기 */}
+          {/* 여기서부턴 로컬스토리지 편지들 불러오기 */}
           {letterList.map((e) => (
-            <Letter key={e.postId}>
-              제목: {e.title}
-              <br />
-              내용: {e.content}
+            <Letter
+              key={e.postId}
+              onClick={() =>
+                navigate(`/detail/${e.postId}`, { state: { letterList } })
+              }
+            >
+              {e.title}
             </Letter>
           ))}
         </LetterWrapper>

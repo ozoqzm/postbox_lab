@@ -41,21 +41,29 @@ const Btn = styled.div`
 `;
 
 const Modal = (props) => {
-  const { isClose, postId } = props;
+  const { isClose, post } = props;
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    // 로컬스토리지 데이터 삭제
+    const savedLetters = JSON.parse(localStorage.getItem("letters")) || [];
+    const updatedLetters = savedLetters.filter(
+      (item) => item.postId !== parseInt(post.postId)
+    );
+    localStorage.setItem("letters", JSON.stringify(updatedLetters));
+
+    // 홈 이동
+    navigate("/");
+  };
+
   return (
     <Container>
       <TextBox>
-        {postId}번 편지
-        <br /> 정말 삭제하실 거예요...? 🥹
+        "{post.title}" 편지
+        <br /> 정말 삭제하실 거예요..? 🥹
       </TextBox>
       <BtnWrapper>
-        <Btn
-          onClick={() => {
-            isClose(false); // 추후 게시글 삭제 기능으로 수정
-          }}
-        >
-          네
-        </Btn>
+        <Btn onClick={handleDelete}>네</Btn>
         <Btn
           onClick={() => {
             isClose(false);

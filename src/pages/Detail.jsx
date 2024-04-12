@@ -1,9 +1,8 @@
 import React from "react";
 import { styled } from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import Modal from "./DelModal";
-import jsonData from "./data.json";
 
 const Container = styled.div`
   position: relative;
@@ -54,20 +53,24 @@ const DeleteBtn = styled.div`
   font-weight: 500;
   line-height: 2;
 `;
-const Detail = () => {
-  const dataList = jsonData;
-
-  const location = useLocation();
-  const postId = location.state;
-  const post = postId ? dataList.find((item) => item.postId === postId) : null;
+const Detail = ({ dataList }) => {
+  const [modal, setModal] = useState(false);
 
   const navigate = useNavigate();
   const goBack = () => {
     navigate(`/`);
   };
 
-  // 모달창 상태
-  const [modal, setModal] = useState(false);
+  const { postId } = useParams();
+  const location = useLocation();
+  const { letterList } = location.state || {};
+
+  // const post = postId ? dataList.find((item) => item.postId === parseInt(postId)) : null;
+
+  const post = postId
+    ? dataList.find((item) => item.postId === parseInt(postId)) ||
+      letterList?.find((item) => item.postId === parseInt(postId))
+    : null;
 
   return (
     <Container>
@@ -81,7 +84,7 @@ const Detail = () => {
       <Title>{post && post.title}</Title>
       <ContentBox>{post && post.content}</ContentBox>
       <DeleteBtn onClick={() => setModal(true)}>삭제하기</DeleteBtn>
-      {modal ? <Modal isClose={setModal} postId={postId} /> : null}
+      {modal ? <Modal isClose={setModal} post={post} /> : null}
     </Container>
   );
 };

@@ -92,7 +92,7 @@ const Send = () => {
     const newLetter = {
       content: content,
       title: title,
-      id: Date.now(),
+      postId: Date.now(),
     };
     const letters = JSON.parse(localStorage.getItem("letters") || "[]");
     letters.push(newLetter);
@@ -112,7 +112,7 @@ const Send = () => {
       </BackBtn>
       <TitleWrapper>
         <Title>편지 제목:</Title>
-        <TitleInput onChange={handleTitleInput} value={title} />
+        <TitleInput onChange={handleTitleInput} />
       </TitleWrapper>
       <ContentBox
         placeholder="로컬스토리지에 데이터 저장해보기!
