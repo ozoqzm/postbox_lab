@@ -46,7 +46,7 @@ const Letter = styled.div`
   display: flex;
   align-items: center;
   width: 200px;
-  min-height: 90px;
+  min-height: 60px;
   border-radius: 5px;
   border: 1px solid #cf4d4d;
   background: #fff;
@@ -55,6 +55,7 @@ const Letter = styled.div`
   font-family: Inter;
   font-size: 16px;
   text-align: center;
+  padding-left: 10px;
 `;
 const PostBox = styled.div`
   position: absolute;
@@ -62,8 +63,8 @@ const PostBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 365px;
-  height: 247px;
+  width: 100%;
+  height: 30vh;
   border-radius: 160px 160px 0px 0px;
   background: #cf4d4d;
   #postText {
@@ -84,17 +85,26 @@ const PostBox = styled.div`
 `;
 const SendBtn = styled.div`
   margin-top: 10px;
-  width: 190px;
-  height: 110px;
+  width: 50%;
+  height: 12vh;
   border: 1px solid #890505;
   background: #cf4d4d;
+  position: relative;
 
   #heart {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     color: #fff;
     font-size: 60px;
+    height: 8vh;
   }
   #goText {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
     text-align: center;
     color: #fff;
     font-size: 14px;
